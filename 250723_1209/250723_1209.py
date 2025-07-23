@@ -12,4 +12,4 @@ for _ in range(1, 11):
                 bsl += n
             if i + j == 99:
                 sl += n
-    print(f"#{t} {max(max(col),max(row),bsl,sl)}")
+    print(f"#{t} {max(max(col),max(row),bsl,sl)}")cd
