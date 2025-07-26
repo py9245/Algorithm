@@ -7,4 +7,5 @@ IM -> A -> B -> C
 
 ### Advanced : 삼성만의 철학이 있음 ex 시뮬레이션, 완전탐색
 
+
 ### Professional : 창의적인 영역 
