@@ -16,7 +16,7 @@ for test_case in range(1, T + 1):
             return
 
         x, y = arr.pop()
-        # 테두리에 있으면 바로 연결
+
         if x == 0 or x == N - 1 or y == 0 or y == N - 1:
             sol(arr, core + 1, line, bd)
             arr.append((x, y))
