@@ -36,20 +36,17 @@ for i in range(2, N + 1):
     r_link[i] = p
     val_list[i] = a
 
-sp = [i for i in range(1, N + 1) if not link[i]] # 비어있으면 sp에 추가
-q = deque()
-q.extend(sp) # 자식없는 자식부터 시작하며 위로 올라감
+indeg = [len(link[i]) for i in range(N+1)]  # 자식 수
+q = deque(i for i in range(1,N+1) if indeg[i]==0)  # 리프부터 시작
+
 while q:
-    idx = q.popleft()
-    if idx == 1:
-        continue
-    next_idx = r_link[idx] # 다음 인덱스
-    now_val = val_list[idx] # 현재 값 +면 양 - 면 늑대
-    next_val = val_list[next_idx] # 다음 인덱스 기준으로 부모가 양인지 늑대인지 값 할당
-    val_list[next_idx] += max(0, now_val) # 부모가 늑대이든 양이든 내가 지금 마이너스면 0을 더해줘야한다 생각
-    # 여태까지 양이 쌓였다면 부모에게 더해주고 늑대밖에 없다면 0을 더해줌 !!!늑대는 한 섬에만 있음!!!
-    # 늑대는 부모로 올라가거나 내려가지 않고 나한테 오는애만 잡아먹어서 양수일때만 더해줌
-    q.append(next_idx)
+    x = q.popleft()
+    if x == 1: continue
+    p = r_link[x]
+    val_list[p] += max(0,val_list[x])
+    indeg[p] -= 1
+    if indeg[p] == 0:
+        q.append(p)
     # 그런대 실패 짜증나서 그냥 부모부터 내려가면서 다 더해주니 성공
     # 이거 탈락 오답으로됨
 total = 0
