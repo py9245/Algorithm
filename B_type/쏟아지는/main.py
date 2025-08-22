@@ -12,6 +12,7 @@ Piece = [[0] * 5 for _ in range(5)]
 Data = [0] * 40000
 
 
+
 def init_map(N):
     idx = 0
     x = 0
