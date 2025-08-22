@@ -1,7 +1,7 @@
 import sys
 import math
 
-sys.stdin = open("input.txt", "r")
+sys.stdin = open("../B_type/쏟아지는/input.txt", "r")
 
 T = int(input())
 
