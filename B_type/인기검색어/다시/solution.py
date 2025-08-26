@@ -28,11 +28,11 @@ def addKeyword(mKeyword):
     global maxcnt
 
     if maxcnt < 1:
-        string = q.popleft()
+        string = q.pop()
         string_cnt[string] -= 1
 
     string_len = len(mKeyword) - 3
-    q.append(mKeyword)
+    q.appendleft(mKeyword)
     string_cnt[mKeyword] += 1 # 더해주기
     maxcnt -= 1
 
@@ -49,17 +49,27 @@ def addKeyword(mKeyword):
 
 
 def top5Keyword(mRet):
+    print(linked_string)
     group = []
-    for bucket in linked_string:
-        visited = set()
-        for key in bucket:
-            if key in visited:
+    visited = set()
+    print
+    for i, s in enumerate(q):
+        ls = len(s) - 3
+        popular = 0
+        stack = [s]
+        while stack:
+            linked = stack.pop()
+            if linked in visited or string_cnt[linked] < 1:
                 continue
-            popular = 0
-            stack = [key]
-            while stack:
-                linked = stack.pop()
-                if linked in visited or string_cnt[linked] < 1:
-                    continue
-                popular += string_cnt[key]
-                for
+            popular += string_cnt[linked]
+            visited.add(linked)
+            for ns in linked_string[ls][linked]:
+                stack.append(ns)
+        group.append((i, popular, s))
+    group.sort(key = lambda x: (-x[1], x[0], x[2]))
+    print(group)
+    result = [s for j, v, s in group[:5] if v > 0]
+    print(result)
+    return result
+            
+
