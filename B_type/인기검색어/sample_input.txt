@@ -1,0 +1,23 @@
+1 100
+21
+100 10
+200 aaa
+200 bbb
+200 ccc
+300 3 aaa bbb ccc
+200 bab
+300 3 bab aaa ccc
+200 bbb
+300 3 bbb aaa ccc
+200 aab
+300 2 bbb ccc
+200 aaa
+200 bbb
+200 ccc
+200 aaa
+200 aaa
+200 aaa
+200 aaa
+300 2 aaa ccc
+200 aaa
+300 3 aaa bbb ccc
