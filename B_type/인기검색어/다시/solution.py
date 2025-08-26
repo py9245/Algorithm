@@ -30,14 +30,15 @@ def addKeyword(mKeyword):
     if maxcnt < 1:
         string = q.pop()
         string_cnt[string] -= 1
+        if string_cnt[string] <= 0:
+            del string_cnt[string]
 
     string_len = len(mKeyword) - 3
     q.appendleft(mKeyword)
     string_cnt[mKeyword] += 1 # 더해주기
     maxcnt -= 1
 
-    if not linked_string[string_len].get(mKeyword):
-        linked_string[string_len][mKeyword] = set()
+    myset = linked_string[string_len].setdefault(mKeyword, set())
 
     for next_keyword in list(linked_string[string_len]):
         if next_keyword == mKeyword:
@@ -45,31 +46,53 @@ def addKeyword(mKeyword):
 
         if is_similar(next_keyword, mKeyword, len(mKeyword)):
             linked_string[string_len][next_keyword].add(mKeyword) #양방향 연결
-            linked_string[string_len][mKeyword].add(next_keyword)
+            myset.add(next_keyword)
 
 
 def top5Keyword(mRet):
-    print(linked_string)
     group = []
     visited = set()
-    print
-    for i, s in enumerate(q):
+
+    for s in list(string_cnt.keys()):
+        if s in visited:
+            continue
+
         ls = len(s) - 3
         popular = 0
-        stack = [s]
-        while stack:
-            linked = stack.pop()
-            if linked in visited or string_cnt[linked] < 1:
+        keyword = None
+        best_cnt = -1
+
+        queue = deque([s])
+        visited.add(s)
+
+        while queue:
+            linked = queue.popleft()
+            cnt = string_cnt.get(linked)
+            if cnt > 0:
+                popular += cnt
+
+            if cnt > best_cnt or (cnt == best_cnt and (keyword is None or keyword > linked)):
+                best_cnt = cnt
+                keyword = linked
+
+            next_bucket = linked_string[ls].get(linked)
+            if not next_bucket:
                 continue
-            popular += string_cnt[linked]
-            visited.add(linked)
-            for ns in linked_string[ls][linked]:
-                stack.append(ns)
-        group.append((i, popular, s))
-    group.sort(key = lambda x: (-x[1], x[0], x[2]))
-    print(group)
-    result = [s for j, v, s in group[:5] if v > 0]
-    print(result)
+
+            for ns in next_bucket:
+                if ns not in visited and string_cnt.get(ns, 0) > 0:
+                    queue.append(ns)
+                    visited.add(ns)
+
+        if popular > 0:
+            group.append((popular, keyword))
+
+    group.sort(key = lambda x: (-x[0], x[1]))
+
+    result = min(5, len(group))
+    for i in range(result):
+        mRet[i] = group[i][1]
+
     return result
             
 
