@@ -13,7 +13,7 @@ n = 0
 current_time = 0
 board = [[[] for _ in range(n)] for _ in range(n)] # 보드에서 겹치는지 확인
 poten = dict() # id : 잠재력
-worm = dict() # 지렁이마다 index 관리
+worm = defaultdict(deque) # 지렁이마다 index 관리
 direction = dict()
 
 
@@ -29,7 +29,7 @@ def init(N):
     n = N
     board = [[[] for _ in range(n)] for _ in range(n)]
     poten = dict()
-    worm = dict()
+    defaultdict(deque)
     direction = dict()
 
 
@@ -41,13 +41,12 @@ def simulation(cnt):
         del_list = []
         for key in list(worm):
             d = direction[key]
-            h, t = worm[key]
-            hy, hx = h
-            ty, tx = t
+            hy, hx = worm[key][0]
+            ty, tx = worm[key][-1]
             if poten[key] > 0:
                 poten[key] -= 1
             else:
-                nty, ntx = ty + dxy[d][0], tx + dxy[d][1]
+                worm[key].pop()
                 board[ty][tx].remove(key)
             if hy == ty or hx == tx:
                 direction[key] = (d + 1) % 4
@@ -64,10 +63,9 @@ def join(mTime, mID, mX, mY, mLength):
         simulation(mTime - current_time)
     current_time = mTime
 
-    worm[mID] = ((mY, mX), (mY + mLength - 1, mX))
-
     for i in range(mLength):
         board[mY + i][mX].append(mID)
+        worm[mID].append((mY + i, mX))
 
     poten[mID] = 0
     direction[mID] = 0
