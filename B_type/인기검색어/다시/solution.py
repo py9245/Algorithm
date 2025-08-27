@@ -94,5 +94,3 @@ def top5Keyword(mRet):
         mRet[i] = group[i][1]
 
     return result
-            
-
