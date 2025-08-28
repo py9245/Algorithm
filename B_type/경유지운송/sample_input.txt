@@ -1,0 +1,265 @@
+3 100
+11
+100 CMD_INIT
+ number_of_city: 5  number_of_road: 2
+ city_id:   0  city_id:   1  limit: 50
+ city_id:   1  city_id:   4  limit: 90
+300 CMD_CALC
+ sender_city_id:   1  receiver_city_id:   4  number_of_stopover: 1
+ stopover_city_id: 3
+ answer: -1
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   4  number_of_stopover: 1
+ stopover_city_id: 1
+ answer: 50
+200 CMD_ADD
+ city_id:   3  city_id:   4  limit: 30
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   4  number_of_stopover: 1
+ stopover_city_id: 3
+ answer: 30
+200 CMD_ADD
+ city_id:   3  city_id:   1  limit: 60
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   4  number_of_stopover: 2
+ stopover_city_id: 3
+ stopover_city_id: 1
+ answer: 50
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   4  number_of_stopover: 3
+ stopover_city_id: 2
+ stopover_city_id: 3
+ stopover_city_id: 1
+ answer: -1
+200 CMD_ADD
+ city_id:   0  city_id:   2  limit: 80
+200 CMD_ADD
+ city_id:   2  city_id:   1  limit: 70
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   4  number_of_stopover: 3
+ stopover_city_id: 2
+ stopover_city_id: 3
+ stopover_city_id: 1
+ answer: 60
+30
+100 CMD_INIT
+ number_of_city: 20  number_of_road: 10
+ city_id:   8  city_id:  19  limit: 6930
+ city_id:  17  city_id:   1  limit: 18423
+ city_id:   1  city_id:   0  limit: 4552
+ city_id:   0  city_id:   4  limit: 4677
+ city_id:   4  city_id:  14  limit: 26110
+ city_id:  14  city_id:   6  limit: 24003
+ city_id:  10  city_id:   8  limit: 24020
+ city_id:   7  city_id:  17  limit: 15713
+ city_id:  11  city_id:  18  limit: 12042
+ city_id:  18  city_id:  10  limit: 18431
+200 CMD_ADD
+ city_id:  10  city_id:  15  limit: 29805
+200 CMD_ADD
+ city_id:  14  city_id:   3  limit: 14633
+200 CMD_ADD
+ city_id:   4  city_id:   1  limit: 5363
+300 CMD_CALC
+ sender_city_id:   0  receiver_city_id:   5  number_of_stopover: 1
+ stopover_city_id: 3
+ answer: -1
+200 CMD_ADD
+ city_id:  17  city_id:   6  limit: 11244
+200 CMD_ADD
+ city_id:   1  city_id:  10  limit: 5384
+200 CMD_ADD
+ city_id:   1  city_id:  18  limit: 10676
+200 CMD_ADD
+ city_id:   1  city_id:   6  limit: 11792
+200 CMD_ADD
+ city_id:   5  city_id:  10  limit: 5676
+200 CMD_ADD
+ city_id:  17  city_id:   2  limit: 23352
+200 CMD_ADD
+ city_id:  17  city_id:  14  limit: 22836
+200 CMD_ADD
+ city_id:  13  city_id:   6  limit: 6764
+200 CMD_ADD
+ city_id:  15  city_id:   0  limit: 26750
+200 CMD_ADD
+ city_id:  11  city_id:   0  limit: 11146
+300 CMD_CALC
+ sender_city_id:  19  receiver_city_id:   4  number_of_stopover: 2
+ stopover_city_id: 10
+ stopover_city_id: 15
+ answer: 6930
+200 CMD_ADD
+ city_id:   5  city_id:  14  limit: 11304
+200 CMD_ADD
+ city_id:  19  city_id:  16  limit: 7338
+200 CMD_ADD
+ city_id:   3  city_id:  12  limit: 8342
+200 CMD_ADD
+ city_id:  19  city_id:   4  limit: 11282
+200 CMD_ADD
+ city_id:   3  city_id:  16  limit: 11614
+200 CMD_ADD
+ city_id:   7  city_id:  16  limit: 25274
+200 CMD_ADD
+ city_id:   1  city_id:  14  limit: 4892
+200 CMD_ADD
+ city_id:   9  city_id:  10  limit: 10052
+200 CMD_ADD
+ city_id:   9  city_id:  18  limit: 27296
+200 CMD_ADD
+ city_id:  19  city_id:  12  limit: 10002
+200 CMD_ADD
+ city_id:  11  city_id:   8  limit: 9406
+200 CMD_ADD
+ city_id:   9  city_id:   6  limit: 21068
+200 CMD_ADD
+ city_id:   5  city_id:  18  limit: 8136
+300 CMD_CALC
+ sender_city_id:   9  receiver_city_id:  10  number_of_stopover: 3
+ stopover_city_id: 8
+ stopover_city_id: 13
+ stopover_city_id: 6
+ answer: 6764
+50
+100 CMD_INIT
+ number_of_city: 30  number_of_road: 20
+ city_id:   4  city_id:   5  limit: 22356
+ city_id:   7  city_id:  19  limit: 7185
+ city_id:   2  city_id:   3  limit: 394
+ city_id:  15  city_id:  22  limit: 6335
+ city_id:   5  city_id:   8  limit: 14000
+ city_id:  25  city_id:   1  limit: 29389
+ city_id:   0  city_id:  17  limit: 18694
+ city_id:  13  city_id:  16  limit: 2155
+ city_id:  17  city_id:  15  limit: 22924
+ city_id:  19  city_id:  13  limit: 12425
+ city_id:  11  city_id:   7  limit: 25618
+ city_id:  20  city_id:   9  limit: 28247
+ city_id:  23  city_id:  27  limit: 26776
+ city_id:  27  city_id:  14  limit: 8853
+ city_id:  14  city_id:  26  limit: 10334
+ city_id:  26  city_id:   0  limit: 18323
+ city_id:   9  city_id:  10  limit: 18772
+ city_id:   8  city_id:  11  limit: 26849
+ city_id:  12  city_id:  28  limit: 490
+ city_id:  22  city_id:  21  limit: 3759
+200 CMD_ADD
+ city_id:   4  city_id:  17  limit: 921
+200 CMD_ADD
+ city_id:   4  city_id:  19  limit: 3061
+200 CMD_ADD
+ city_id:   6  city_id:   7  limit: 29233
+200 CMD_ADD
+ city_id:  16  city_id:  19  limit: 8589
+200 CMD_ADD
+ city_id:  22  city_id:  23  limit: 13017
+200 CMD_ADD
+ city_id:   6  city_id:  27  limit: 5413
+200 CMD_ADD
+ city_id:  18  city_id:  27  limit: 4769
+300 CMD_CALC
+ sender_city_id:  26  receiver_city_id:   3  number_of_stopover: 1
+ stopover_city_id: 5
+ answer: -1
+200 CMD_ADD
+ city_id:  23  city_id:   6  limit: 4402
+200 CMD_ADD
+ city_id:  13  city_id:   0  limit: 10590
+200 CMD_ADD
+ city_id:  23  city_id:  20  limit: 28810
+200 CMD_ADD
+ city_id:   7  city_id:  22  limit: 15878
+200 CMD_ADD
+ city_id:   7  city_id:  12  limit: 19938
+200 CMD_ADD
+ city_id:  23  city_id:  24  limit: 622
+200 CMD_ADD
+ city_id:  13  city_id:   8  limit: 15418
+200 CMD_ADD
+ city_id:  17  city_id:  20  limit: 4134
+200 CMD_ADD
+ city_id:  11  city_id:  28  limit: 7314
+200 CMD_ADD
+ city_id:  13  city_id:  18  limit: 6030
+200 CMD_ADD
+ city_id:   1  city_id:  20  limit: 208
+200 CMD_ADD
+ city_id:  17  city_id:  24  limit: 17148
+200 CMD_ADD
+ city_id:  27  city_id:  12  limit: 1816
+200 CMD_ADD
+ city_id:  23  city_id:  14  limit: 20388
+200 CMD_ADD
+ city_id:   7  city_id:  14  limit: 23824
+200 CMD_ADD
+ city_id:  27  city_id:  26  limit: 29778
+200 CMD_ADD
+ city_id:  17  city_id:  12  limit: 17486
+200 CMD_ADD
+ city_id:  25  city_id:   2  limit: 18778
+200 CMD_ADD
+ city_id:   5  city_id:  24  limit: 28486
+200 CMD_ADD
+ city_id:  19  city_id:  20  limit: 27218
+200 CMD_ADD
+ city_id:  11  city_id:  14  limit: 3566
+200 CMD_ADD
+ city_id:   5  city_id:   2  limit: 7050
+200 CMD_ADD
+ city_id:  27  city_id:  24  limit: 22924
+200 CMD_ADD
+ city_id:  11  city_id:   2  limit: 10632
+200 CMD_ADD
+ city_id:  19  city_id:   2  limit: 3924
+300 CMD_CALC
+ sender_city_id:   5  receiver_city_id:   6  number_of_stopover: 3
+ stopover_city_id: 28
+ stopover_city_id: 25
+ stopover_city_id: 14
+ answer: 7314
+200 CMD_ADD
+ city_id:  24  city_id:  15  limit: 23863
+300 CMD_CALC
+ sender_city_id:   4  receiver_city_id:  27  number_of_stopover: 3
+ stopover_city_id: 29
+ stopover_city_id: 2
+ stopover_city_id: 13
+ answer: -1
+200 CMD_ADD
+ city_id:  17  city_id:   6  limit: 6550
+200 CMD_ADD
+ city_id:   9  city_id:   2  limit: 14360
+200 CMD_ADD
+ city_id:  21  city_id:  18  limit: 9588
+200 CMD_ADD
+ city_id:  25  city_id:  16  limit: 8332
+200 CMD_ADD
+ city_id:   7  city_id:   2  limit: 26856
+200 CMD_ADD
+ city_id:  19  city_id:   8  limit: 7716
+200 CMD_ADD
+ city_id:  15  city_id:   6  limit: 2950
+200 CMD_ADD
+ city_id:   1  city_id:  24  limit: 27394
+300 CMD_CALC
+ sender_city_id:   1  receiver_city_id:   8  number_of_stopover: 2
+ stopover_city_id: 6
+ stopover_city_id: 3
+ answer: 394
+200 CMD_ADD
+ city_id:   7  city_id:   0  limit: 15168
+300 CMD_CALC
+ sender_city_id:   1  receiver_city_id:  18  number_of_stopover: 1
+ stopover_city_id: 12
+ answer: 6030
+300 CMD_CALC
+ sender_city_id:  20  receiver_city_id:   3  number_of_stopover: 3
+ stopover_city_id: 29
+ stopover_city_id: 14
+ stopover_city_id: 27
+ answer: -1
+300 CMD_CALC
+ sender_city_id:  11  receiver_city_id:   8  number_of_stopover: 1
+ stopover_city_id: 28
+ answer: 7314
