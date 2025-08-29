@@ -1,5 +1,5 @@
 #####solution.py
-from collections import defaultdict
+import heapq
 
 n = 0
 k = 0
@@ -24,36 +24,43 @@ def add(sCity, eCity, mLimit):
     tree[eCity].append((sCity, mLimit))
 
 
-def dfs(sc, ec, mstop, limi, visi):
-    global ans
-
-    if limi <= ans:
-        return
-
-    if sc == ec and not mstop:
-        ans = max(ans, limi)
-        return
-
-
-    for node, load in tree[sc]:
-        if (sc, node) in visi:
-            break
-
-        visi.append((sc, node))
-
-        if node in mstop:
-            mstop.remove(node)
-            dfs(node, ec, mstop, load if limi > load else limi, visi)
-            mstop.append(node)
-        else:
-            dfs(node, ec, mstop, load if limi > load else limi, visi)
-        visi.pop()
-
 
 def calculate(sCity, eCity, M, mStopover):
-    global ans
+    finished = set()
+    finished.add(sCity)
+    m_stop = set(mStopover)
+    m_stop.add(sCity)
+    m_stop.add(eCity)
 
-    ans = -1
-    dfs(sCity, eCity, mStopover, float('INF'), [sCity])
-    print(ans)
-    return ans
+    recode = [0] * n
+    recode[sCity] = 300000
+    hq = []
+
+    for node, limit in tree[sCity]:
+        heapq.heappush(hq, (-limit, node))
+        recode[node] = limit
+
+    while hq and len(m_stop - finished) > 0:
+        limit, nd = heapq.heappop(hq)
+        limit = -limit
+        if recode[nd] > limit:
+            continue
+
+        for n_node, n_limit in tree[nd]:
+            min_limit = min(recode[nd], n_limit)
+            if recode[n_node] < min_limit:
+                if n_node in finished:
+                    finished.remove(n_node)
+                recode[n_node] = min_limit
+                heapq.heappush(hq, (-min_limit, n_node))
+
+        finished.add(nd)
+
+    if len(m_stop - finished) > 0:
+        return -1
+
+    best = 30001
+    for st in m_stop:
+        best = min(best, recode[st])
+
+    return best

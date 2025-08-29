@@ -22,7 +22,7 @@ class RESULT:
             for i in range(5):
                 for j in range(5):
                     cnt = 5
-                    for z in range(101):
+                    for z in range(discount_price[(i, j)]//10000, 101):
                         if cnt <= 0:
                             break
                         if not price_manager[i][j][z]:
@@ -33,8 +33,8 @@ class RESULT:
         else:
             for i in range(5):
                 cnt = 5
-                for z in range(101):
-                    if self.h == 1:
+                if self.h == 1:
+                    for z in range(discount_price[(self.c, i)] // 10000, 101):
                         if cnt == 0:
                             break
                         if not price_manager[self.c][i][z]:
@@ -42,7 +42,8 @@ class RESULT:
                         min_arr = sorted(price_manager[self.c][i][z].items(), key=lambda x: x[1])[:cnt]
                         cnt -= len(min_arr)
                         min_list.extend(min_arr)
-                    else:
+                else:
+                    for z in range(discount_price[(i, self.c)] // 10000, 101):
                         if cnt == 0:
                             break
                         if not price_manager[i][self.c][z]:
@@ -94,6 +95,7 @@ def closeSale(mID):
     value = product_dict.get(mID, -1)
     if value == -1:
         return -1
+
     ca, co, store_price = value
     del product_dict[mID]
     live_count[(ca, co)] -= 1

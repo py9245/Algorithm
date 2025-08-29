@@ -1,6 +1,8 @@
 #####main.py
 import sys
 from solution import init, sell, closeSale, discount, show
+import time
+
 
 CMD_INIT = 100
 CMD_SELL = 200
@@ -55,7 +57,7 @@ def run1():
             okay = False
     return okay
 
-
+st = time.time()
 sys.stdin = open('sample_input.txt', 'r')
 
 T, MARK = map(int, input().split())
@@ -63,3 +65,5 @@ T, MARK = map(int, input().split())
 for tc in range(1, T + 1):
     score = MARK if run1() else 0
     print("#%d %d" % (tc, score), flush = True)
+
+print(time.time() - st)
