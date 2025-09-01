@@ -82,6 +82,7 @@ def pickup(mSX, mSY, mEX, mEY):
         if not cell:
             continue
 
+        # 버킷에서 나올 수 있는 최소 거리가 기존 베스트거리보다 크면 패스
         if _cell_min_dist(mSX, mSY, nx, ny) > best_dist:
             continue
 
