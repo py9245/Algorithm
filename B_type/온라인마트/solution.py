@@ -105,15 +105,15 @@ def closeSale(mID):
 
 def discount(mCategory, mCompany, mAmount):
     ca, co = mCategory - 1, mCompany - 1
-    discount_price[(ca, co)] += mAmount
-    dis_c = discount_price[(ca, co)]
-    del_range = dis_c // 10000
+    discount_price[(ca, co)] += mAmount # 원래 튜플 키 할인 금액 업데이트
+    dis_c = discount_price[(ca, co)] # 변수로 뽑음
+    del_range = dis_c // 10000 # 버킷에 사용할 인덱스 구함 버킷 아래에 것들은 다 빈걸로 업데이트
     cnt = 0
     for i in range(del_range):
-        for key_i in price_manager[ca][co][i]:
+        for key_i in price_manager[ca][co][i]: # 프로덕트 딕을 없애줘야 하기 때문에 그냥 단순 순회는 진행
             del product_dict[key_i]
             cnt += 1
-        price_manager[ca][co][i] = {}
+        price_manager[ca][co][i] = {} # 포문이 끝나면 빈 딕셔너리로 업데이트
     snap_shot = list(price_manager[ca][co][del_range].items())
     for key, value in snap_shot:
         if value <= dis_c:
