@@ -1,5 +1,6 @@
 import heapq
 
+n = 0
 heap = []           # 빈공간: (-길이, 시작, 끝)
 start_space = {}    # 시작 → 끝
 end_space = {}      # 끝 → 시작
@@ -9,7 +10,9 @@ invalid = set()     # 힙에서 무시해야 하는 구간
 
 def init(N):
     """토지 초기화"""
-    global heap, start_space, end_space, buildings, invalid
+    global heap, start_space, end_space, buildings, invalid, n
+
+    n = N
     heap = [(-N, 0, N - 1)]
     start_space = {0: N - 1}
     end_space = {N - 1: 0}
@@ -17,9 +20,6 @@ def init(N):
     invalid = set()
 
 
-def _valid(s, e):
-    """(s,e)가 현재 딕셔너리와 일치하는 유효 구간인지"""
-    return start_space.get(s) == e and end_space.get(e) == s
 
 
 def build(mLength):
@@ -27,76 +27,77 @@ def build(mLength):
 
     while heap:
         neg_len, s, e = heapq.heappop(heap)
-        length = -neg_len
 
         if (s, e) in invalid:
             invalid.remove((s, e))
             continue
-        if not _valid(s, e):
-            continue
 
-        if length < mLength:
+
+        if neg_len > -mLength:
             return -1
 
-        remain = length - mLength
-        right = remain // 2
-        left = remain - right
-        addr = s + left
-        end_b = addr + mLength - 1
+        remain = neg_len + mLength # 음수 # -23
+        right = remain // 2 # -12
+        left = remain - right # -11
+        left_s = s
+        left_e = s - left - 1
+        right_s = e + right + 1
+        right_e = e
+        build_id = s - left
+        del start_space[s]
+        del end_space[e]
 
-        start_space.pop(s, None)
-        end_space.pop(e, None)
+        buildings[build_id] = mLength
 
-        buildings[addr] = end_b
+        if left < 0:
+            start_space[left_s] = left_e
+            end_space[left_e] = left_s
+            heapq.heappush(heap, (left, left_s, left_e))
 
-        if left > 0:
-            ns, ne = s, addr - 1
-            start_space[ns] = ne
-            end_space[ne] = ns
-            heapq.heappush(heap, (-(ne - ns + 1), ns, ne))
+        if right < 0:
+            start_space[right_s] = right_e
+            end_space[right_e] = right_s
+            heapq.heappush(heap, (right, right_s, right_e))
 
-        if right > 0:
-            ns, ne = end_b + 1, e
-            start_space[ns] = ne
-            end_space[ne] = ns
-            heapq.heappush(heap, (-(ne - ns + 1), ns, ne))
+        print(f"heap : {heap}")
+        print(f"start_space : {start_space}")
+        print(f"end_space : {end_space}")
+        print(f"buildings : {buildings}")
 
-        return addr
 
+        return build_id
+    print(f"heap : {heap}")
+    print(f"start_space : {start_space}")
+    print(f"end_space : {end_space}")
+    print(f"buildings : {buildings}")
     return -1
 
 
 
 def demolish(mAddr):
     global heap, start_space, end_space, buildings, invalid
-
+    print(f"{mAddr} {buildings}")
     if mAddr not in buildings:
         return -1
 
-    end_b = buildings.pop(mAddr)
-    length = end_b - mAddr + 1
+    m_length = buildings.pop(mAddr)
+    left_e = mAddr - 1
+    right_s = mAddr + m_length
+    if left_e >= 0 and end_space:
+        left_s = end_space.pop(left_e)
+        del start_space[left_s]
+        invalid.add((left_s - left_e - 1, left_s, left_e))
+    else :
+        left_s = 0
 
-    ns, ne = mAddr, end_b
+    if right_s < (n - 1) and start_space:
+        right_e = start_space.pop(right_s)
+        del end_space[right_e]
+        invalid.add((right_s - right_e - 1, right_s, right_e))
+    else:
+        right_e = mAddr + m_length
 
-    # 왼쪽 병합
-    left_end = mAddr - 1
-    if left_end in end_space:
-        ls = end_space.pop(left_end)
-        start_space.pop(ls, None)
-        invalid.add((ls, left_end))
-        ns = ls
+    heapq.heappush(heap, (-(right_e - left_s + 1), left_s, right_e))
+    # print(f"invalid : {invalid}")
 
-    # 오른쪽 병합
-    right_start = end_b + 1
-    if right_start in start_space:
-        re = start_space.pop(right_start)
-        end_space.pop(re, None)
-        invalid.add((right_start, re))
-        ne = re
-
-    # 새 구간 추가
-    start_space[ns] = ne
-    end_space[ne] = ns
-    heapq.heappush(heap, (-(ne - ns + 1), ns, ne))
-
-    return length
+    return m_length
