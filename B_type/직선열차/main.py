@@ -51,6 +51,7 @@ def run1():
 			eId = int(inputarray[3])
 			ans = int(input().split()[1])
 			ret = calculate(sId, eId)
+			# print(f"ret : {ret}")
 			if ans != ret:
 				okay = False
 		else:

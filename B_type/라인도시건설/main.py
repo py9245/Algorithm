@@ -20,14 +20,12 @@ def run1():
         elif cmd == CMD_BUILD:
             mLength = int(next(input_iter))
             ret = build(mLength)
-            print(f"build_ret : {ret}")
             ans = int(next(input_iter))
             if ret != ans:
                 okay = False
         elif cmd == CMD_DEMOLISH:
             mAddr = int(next(input_iter))
             ret = demolish(mAddr)
-            print(f"demolish_ret : {ret}")
             ans = int(next(input_iter))
             if ret != ans:
                 okay = False
