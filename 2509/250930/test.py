@@ -1,23 +1,21 @@
-import sys
-
-sys.stdin = open('input.txt', 'r')
+# import sys
+#
+# sys.stdin = open('input.txt', 'r')
+# import time
+#
+# st = time.time()
 
 T = int(input())
 
 for tc in range(1, T + 1):
     N, M = map(int, input().split())
-    A = list(map(int, input().split()))
-    B = list(map(int, input().split()))
-    if N > M:
-        N, M = M, N
-        A, B = B, A
-
-    answer = 0
-
-    for i in range(M - N + 1):
-        total = 0
-        for j in range(N):
-            total += A[j] * B[i + j]
-        answer = max(answer, total)
-
-    print(f"#{tc} {answer}")
+    A = set(map(int, input().split()))
+    # A = set(range(1, 500000))
+    B = set(map(int, input().split()))
+    cnt = 0
+    for i in B:
+        if i in A:
+            cnt += 1
+    # B = set(range(250000, 750000))
+    print(f"#{tc} {cnt}")
+# print(time.time() - st)
