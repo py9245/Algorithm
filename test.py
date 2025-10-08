@@ -16,9 +16,11 @@ def merge(left, right):
             result.append(right[right_p])
             right_p += 1
 
+
     for _ in range(left_p, left_max_p):
         result.append(left[left_p])
         left_p += 1
+
 
     for _ in range(right_p, right_max_p):
         result.append(right[right_p])
@@ -44,7 +46,6 @@ def merge_sort(arr):
 
 
 nums = list(map(int, input().split()))
-
 
 
 print(merge_sort(nums))
