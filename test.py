@@ -9,6 +9,7 @@ def merge(left, right):
     left_p, right_p = 0, 0
 
 
+
     while left_p < left_max_p and right_p < right_max_p:
         if left[left_p] < right[right_p]:
             result.append(left[left_p])
