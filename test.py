@@ -24,6 +24,7 @@ def merge(left, right):
         left_p += 1
 
 
+
     for _ in range(right_p, right_max_p):
         result.append(right[right_p])
         right_p += 1
