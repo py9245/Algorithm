@@ -1,42 +1,50 @@
-import time
-
 import sys
-
-import heapq
 
 sys.stdin = open('input.txt', 'r')
 
-T = int(input())
 
-dxy = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+def merge(left, right):
+    result = []
+    left_max_p, right_max_p = len(left), len(right)
+    left_p, right_p = 0, 0
 
-for case in range(1, T + 1):
-    N = int(input())
-    board = [list(map(int, input().split())) for _ in range(N)]
-    distance = [[float('inf')] * N for _ in range(N)]
-    hq = []
-    heapq.heappush(hq, [0, 0, 0])
-    distance[0][0] = 0
+    while left_p < left_max_p and right_p < right_max_p:
+        if left[left_p] < right[right_p]:
+            result.append(left[left_p])
+            left_p += 1
+        else:
+            result.append(right[right_p])
+            right_p += 1
 
-    while hq:
-        move_cnt, x, y = heapq.heappop(hq)
-        # print(f"x : {x}, y : {y}, 현재 이동거리 : {move_cnt}")
-        if distance[x][y] < move_cnt:
-            continue
+    for _ in range(left_p, left_max_p):
+        result.append(left[left_p])
+        left_p += 1
 
-        if x == (N - 1) and y == (N - 1):
-            break
+    for _ in range(right_p, right_max_p):
+        result.append(right[right_p])
+        right_p += 1
 
-        for dx, dy in dxy:
-            nx, ny = x + dx, y + dy
-            if not(0 <= nx < N and 0 <= ny < N) or board[nx][ny] == 1:
-                continue
+    return result
 
-            nxt_move_cnt = move_cnt + 1
 
-            if distance[nx][ny] <= nxt_move_cnt:
-                continue
+def merge_sort(arr):
+    n = len(arr)
 
-            heapq.heappush(hq, [nxt_move_cnt, nx, ny])
-            distance[nx][ny] = nxt_move_cnt
-    print(f"#{case} {-1 if distance[N - 1][N - 1] == float('inf') else distance[N - 1][N - 1]}")
+    if n <= 1:
+        return arr
+
+    mid = n // 2
+    left = arr[:mid]
+    right = arr[mid:]
+
+    left = merge_sort(left)
+    right = merge_sort(right)
+
+    return merge(left, right)
+
+
+nums = list(map(int, input().split()))
+
+
+
+print(merge_sort(nums))
