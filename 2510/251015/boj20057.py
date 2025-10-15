@@ -27,6 +27,7 @@ cnt = 0
 turn = 0
 answer = 0
 
+
 def sand(x, y, d):
     global answer
 
