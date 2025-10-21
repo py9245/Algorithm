@@ -3,7 +3,7 @@ sys.stdin = open("251020_boj12100.txt", "r")
 
 from collections import deque
 
-MAX_CNT = 5
+MAX_CNT = 10
 TURN = 4
 
 def gravity_2048(cnt, cbd, col, b_last, last):
@@ -58,7 +58,7 @@ def dfs(cnt, bd):
         cur = rotate90(cur)
 
 N = int(input())
-dxy = [(N - 1, -1, -1),(1,0),(0,-1),(-1,0)]
+
 board = [list(map(int, input().split())) for _ in range(N)]
 
 for i in range(N):
