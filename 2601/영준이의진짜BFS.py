@@ -4,6 +4,8 @@ sys.stdin = open("input.txt", "r")
 
 from collections import deque, defaultdict
 
+LOG = 20
+
 T = int(input())
 
 for tc in range(1, T + 1):
