@@ -18,11 +18,12 @@ for tc in range(1, T + 1):
         for j in range(N):
             if arr[i][j] == 0:
                 continue
-            
+
             arr[i][j] = 0
             min_x, min_y, max_x, max_y = i, j, i, j
             queue = deque()
             queue.append((i, j))
+
 
             while queue:
                 x, y = queue.popleft()
