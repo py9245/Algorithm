@@ -21,7 +21,7 @@ public class boj2206 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.setIn(new FileInputStream("res/class_A/input.txt"));
+		System.setIn(new FileInputStream("res/class_A/input2206.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
