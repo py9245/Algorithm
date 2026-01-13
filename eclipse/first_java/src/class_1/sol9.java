@@ -5,7 +5,7 @@ import java.io.*;
 public class sol9 {
 
 	public static void main(String[] args) throws Exception {
-//		System.setIn(new FileInputStream("res/input9.txt"));
+//		System.setIn(new FileInputStream("res/class_1/input9.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		String A = br.readLine();
