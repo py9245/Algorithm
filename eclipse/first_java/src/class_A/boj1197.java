@@ -13,6 +13,7 @@ public class boj1197 {
 		int v = Integer.parseInt(st.nextToken());
 		int e = Integer.parseInt(st.nextToken());
 		
+		
 		PriorityQueue<int[]> edge = new PriorityQueue<>((o1, o2) -> o1[2] - o2[2]);
 		
 		for (int i = 0; i < e; i++) {
