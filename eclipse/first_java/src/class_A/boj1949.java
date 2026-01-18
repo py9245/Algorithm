@@ -43,10 +43,8 @@ public class boj1949 {
 			a = Integer.parseInt(st.nextToken());
 			b = Integer.parseInt(st.nextToken());
 			node[a].add(b);
-			xxx[a] -= people[b];
 			node[b].add(a);
-			xxx[b] -= people[a];
 		}
-		System.out.println(Arrays.toString(xxx));
+		
 	}
 }
