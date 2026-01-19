@@ -3,8 +3,13 @@ package class_B.커피점제과점;
 import java.util.*;
 
 class UserSolution {
+//	정점, 노드 받음
 	static int n, k;
+	
+//	dist를 위한 최댓값 설정
 	static final int INF = Integer.MAX_VALUE/2;
+	
+//	edge객체
 	static class Edge implements Comparable<Edge>{
 		int node, cost;
 		
