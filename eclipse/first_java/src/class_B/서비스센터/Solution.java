@@ -55,6 +55,7 @@ class Solution {
                 rId = Integer.parseInt(st.nextToken());
                 ans = Integer.parseInt(st.nextToken());
 	            ret = userSolution.remove(mTime, rId);
+	            System.out.println("re정답 : " + ans + "내 답변: " + ret);
                 if(ans != ret)
 	        		okay = false;
 	        }
@@ -64,6 +65,7 @@ class Solution {
                 mGrade = Integer.parseInt(st.nextToken());
                 ans = Integer.parseInt(st.nextToken());
 	            ret = userSolution.evaluate(mTime, mGrade);
+	            System.out.println("ev정답 : " + ans + "내 답변: " + ret);
                 if(ans != ret)
 	        		okay = false;
 	        }
@@ -74,7 +76,7 @@ class Solution {
     public static void main(String[] args) throws Exception {
         int T, MARK;
 
-        // System.setIn(new java.io.FileInputStream("./res/sample_input.txt"));
+        System.setIn(new java.io.FileInputStream("res/서비스센터/sample_input.txt"));
         br = new BufferedReader(new InputStreamReader(System.in));        
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         

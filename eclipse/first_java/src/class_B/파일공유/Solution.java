@@ -101,7 +101,7 @@ class Solution {
 
 	public static void main(String[] args) throws Exception {
 
-		//System.setIn(new java.io.FileInputStream("res/sample_input.txt"));
+		System.setIn(new java.io.FileInputStream("res/파일공유/sample_input.txt"));
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer line = new StringTokenizer(br.readLine(), " ");
