@@ -55,7 +55,7 @@ class Solution {
                 rId = Integer.parseInt(st.nextToken());
                 ans = Integer.parseInt(st.nextToken());
 	            ret = userSolution.remove(mTime, rId);
-	            System.out.println("re정답 : " + ans + "내 답변: " + ret);
+//	            System.out.println("re정답 : " + ans + "내 답변: " + ret);
                 if(ans != ret)
 	        		okay = false;
 	        }
@@ -65,7 +65,7 @@ class Solution {
                 mGrade = Integer.parseInt(st.nextToken());
                 ans = Integer.parseInt(st.nextToken());
 	            ret = userSolution.evaluate(mTime, mGrade);
-	            System.out.println("ev정답 : " + ans + "내 답변: " + ret);
+//	            System.out.println("ev정답 : " + ans + "내 답변: " + ret);
                 if(ans != ret)
 	        		okay = false;
 	        }
