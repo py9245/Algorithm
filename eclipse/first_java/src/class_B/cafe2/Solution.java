@@ -63,6 +63,7 @@ class Solution
                 	mBeverages[i] = Integer.parseInt(st.nextToken());
                 ret = usersolution.order(mID, M, mBeverages);
                 ans = Integer.parseInt(st.nextToken());
+//                System.out.println("order 정답 : " + ans + " 내 답변 : " + ret);
                 if (ret != ans)
                 	okay = false;
                 break;
@@ -70,6 +71,7 @@ class Solution
                 mBeverage =  Integer.parseInt(st.nextToken());
                 ret = usersolution.supply(mBeverage);
                 ans = Integer.parseInt(st.nextToken());
+//                System.out.println("supply 정답 : " + ans + " 내 답변 : " + ret);
                 if (ret != ans)
                 	okay = false;
                 break;
@@ -77,6 +79,7 @@ class Solution
                 mID = Integer.parseInt(st.nextToken());
                 ret = usersolution.cancel(mID);
                 ans = Integer.parseInt(st.nextToken());
+//                System.out.println("Calcel 정답 : " + ans + " 내 답변 : " + ret);
                 if (ret != ans)
                     okay = false;
                 break;
@@ -84,6 +87,7 @@ class Solution
             	mID = Integer.parseInt(st.nextToken());
             	ret = usersolution.getStatus(mID);
             	ans = Integer.parseInt(st.nextToken());
+//            	System.out.println("get 정답 : " + ans + " 내 답변 : " + ret);
             	if (ret != ans)
             		okay = false;
             	break;
@@ -92,11 +96,13 @@ class Solution
             	cnt = Integer.parseInt(st.nextToken());
             	if (res.cnt != cnt)
             		okay = false;
+//            		System.out.println("hurry 정답 : " + cnt + " 내 답변 : " + res.cnt);
             	for (int i = 0; i < cnt; ++i)
             	{
             		ans = Integer.parseInt(st.nextToken());
             		if (res.IDs[i] != ans)
             			okay = false;
+//            			System.out.println("hurry int[] 정답 : " + ans + " 내 답변 : " + res.IDs[i]);
             	}
             	break;
             default:
