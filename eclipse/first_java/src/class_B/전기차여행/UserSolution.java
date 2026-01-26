@@ -106,60 +106,85 @@ class UserSolution {
 		return;
 	}
 	
-	static int[] dist, danger;
+	static int[] danger;
+	static int[][] dist;
 	static final int INF = Integer.MAX_VALUE;
 	
 	public int cost(int B, int sCity, int eCity, int M, int mCity[], int mTime[]) {
-		m = M;
-		int answer = -1;
-		danger = new int[n];
-		dist = new int[n];
-		for (int i = 0; i < n; i++) {
-			danger[i] = INF;
-			dist[i] = INF;
-		}
-		vPQ = new PriorityQueue<NodeV>();
-		
-		for (int i = 0; i < M; i++) {
-			vPQ.add(new NodeV(mTime[i], mCity[i]));
-			danger[mCity[i]] = mTime[i];
-		}
-		
-		while (!vPQ.isEmpty()) {
-			NodeV curr = vPQ.poll();
-			
-			if (curr.arrived > danger[curr.city]) continue;
-			for (Edge next : edge[curr.city]) {
-				int nextarrived = curr.arrived + next.time;
-				if (danger[next.to] <= nextarrived) continue;
-				danger[next.to] = nextarrived;
-				vPQ.add(new NodeV(nextarrived, next.to));
-			}
-		}
-		
-		cPQ = new PriorityQueue<NodeC>();
-		cPQ.add(new NodeC(0, sCity, B));
-		dist[sCity] = 0;
-		while (!cPQ.isEmpty()) {
-			NodeC curr = cPQ.poll();
-			if (dist[curr.city] < curr.arrived || danger[curr.city] <= curr.arrived)continue;
-			if (curr.city ==  eCity)
-				return curr.arrived;
-			for (Edge next : edge[curr.city]) {
-				int currP = curr.power;
-				int nextarrived = curr.arrived + next.time;
-				while (currP < next.power) {
-					nextarrived++;
-					currP += charge[curr.city];
-				}
-				currP -= next.power;
-				if (nextarrived >= dist[next.to] || nextarrived >= danger[next.to]) continue;
-				cPQ.add(new NodeC(nextarrived, next.to, currP));
-				dist[next.to] = nextarrived;
-			}
-			
-		}
-		
-		return answer;
+
+	    danger = new int[n];
+	    for (int i = 0; i < n; i++) danger[i] = INF;
+
+	    vPQ = new PriorityQueue<>();
+	    for (int i = 0; i < M; i++) {
+	        int c = mCity[i];
+	        int t = mTime[i];
+	        if (t < danger[c]) {
+	            danger[c] = t;
+	            vPQ.add(new NodeV(t, c));
+	        }
+	    }
+
+	    while (!vPQ.isEmpty()) {
+	        NodeV cur = vPQ.poll();
+	        if (cur.arrived != danger[cur.city]) continue;
+
+	        for (Edge nx : edge[cur.city]) {
+	            int nt = cur.arrived + nx.time;
+	            if (nt < danger[nx.to]) {
+	                danger[nx.to] = nt;
+	                vPQ.add(new NodeV(nt, nx.to));
+	            }
+	        }
+	    }
+
+	    dist = new int[n][B + 1];
+	    for (int i = 0; i < n; i++)
+	        for (int b = 0; b <= B; b++)
+	            dist[i][b] = INF;
+
+	    cPQ = new PriorityQueue<>();
+
+	    if (0 >= danger[sCity]) return -1;
+	    dist[sCity][B] = 0;
+	    cPQ.add(new NodeC(0, sCity, B));
+
+	    while (!cPQ.isEmpty()) {
+	        NodeC cur = cPQ.poll();
+	        int t = cur.arrived, u = cur.city, b = cur.power;
+
+	        if (t != dist[u][b]) continue;
+	        if (t >= danger[u]) continue;
+
+	        if (u == eCity) return t;
+
+	        if (b < B) {
+	            int nt = t + 1;
+	            if (nt < danger[u]) {
+	                int nb = b + charge[u];
+	                if (nb > B) nb = B;
+	                if (nt < dist[u][nb]) {
+	                    dist[u][nb] = nt;
+	                    cPQ.add(new NodeC(nt, u, nb));
+	                }
+	            }
+	        }
+
+	        for (Edge nx : edge[u]) {
+	            if (b < nx.power) continue;
+	            int nt = t + nx.time;
+	            int nb = b - nx.power;
+
+	            if (nt >= danger[nx.to]) continue;
+
+	            if (nt < dist[nx.to][nb]) {
+	                dist[nx.to][nb] = nt;
+	                cPQ.add(new NodeC(nt, nx.to, nb));
+	            }
+	        }
+	    }
+
+	    return -1;
 	}
+
 }
