@@ -1,228 +1,112 @@
 package class_B.서비스센터;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 class UserSolution {
+	
+	static int n, m, lastTime;
+	
+	static class Order implements Comparable<Order>{
+		int time, oID, work, grade;
+		
+		public Order(int time, int oID, int work, int grade) {
+			this.time = time;
+			this.oID = oID;
+			this.work = work;
+			this.grade = grade;
+		}
+		
+		public int compareTo(Order o) {
+			return this.time - o.time;
+		}
+	}
+	
+	static class Robot implements Comparable<Robot>{
+		int rID, work;
+		
+		public Robot(int rID, int work) {
+			this.rID = rID;
+			this.work = work;
+		}
+		public int compareTo(Robot o) {
+			if(this.work != o.work) return o.work - this.work;
+			return this.rID - o.rID;
+		}
+	}
+	
+	static class Task implements Comparable<Task>{
+		int endTime, oID, rID;
+		boolean isDone;
+		public Task(int endTime, int oID, int rID) {
+			this.endTime = endTime;
+			this.oID = oID;
+			this.rID = rID;
+			this.isDone = false; 
+		}
+		public int compareTo(Task o) {
+			return this.endTime - o.endTime;
+		}
+	}
+	
+	static final int MAXROBOT = 1001;
+	static final int MAXORDER = 50001;
+	
+	static int[] answer;
+	
+//	크기는 주문 최대 50001 안엔 Task
+	static Task[] taskInfo;
+	static PriorityQueue<Task> tasking;
+	
+//	크기는 로봇 ID 최대 1001 안엔 작업중인 주문ID, 주문 미할당 : 0, 삭제됐다면 : -1
+	static int[] robotInfo;
+	
+ 	static PriorityQueue<Order> beforePQ;
+	static PriorityQueue<Order> normalPQ;
+	static PriorityQueue<Order> waitPQ;
+	
+	void init(int N, int M) {
+		lastTime = 0;
+		n = N;
+		m = M;
+		answer = new int[M + 1];
+		taskInfo = new Task[MAXORDER];
+		tasking = new PriorityQueue<Task>();
+		robotInfo = new int[MAXROBOT];
+		Arrays.fill(robotInfo, -1);
+		beforePQ = new PriorityQueue<Order>();
+		normalPQ = new PriorityQueue<Order>((o1, o2) -> {
+			if (o2.grade != o1.grade) return o2.grade - o1.grade;
+			return o1.time - o2.time;
+		});
+		waitPQ = new PriorityQueue<Order>();
+	}
 
-    static int N, M;
-    static int[] currentResult;
+//	할당된 시간 포함 온전히 다 일 완료한 다음 초가 endTime
+	static void update(int target) {
+		while (lastTime < target) {
+			
+		}
+	}
+	
+	void receive(int mTime, int mId, int mWorkload, int mGrade) {
+		beforePQ.add(new Order(mTime, mId, mWorkload, mGrade));
+		update(mTime);
+	}
 
-    static class Robot implements Comparable<Robot> {
-        int rId, power;
+	void add(int mTime, int rId, int mThroughput) {
+		update(mTime);
+//		예외적으로 robot 할당하는 로직 구현
+	}
 
-        public Robot(int rId, int power) {
-            this.rId = rId;
-            this.power = power;
-        }
+	int remove(int mTime, int rId) {
+		update(mTime);
+//		예외적으로 robot 삭제하는 로직 구현
+		return 0;
+	}
 
-        @Override
-        public int compareTo(Robot o) {
-            if (this.power != o.power) return o.power - this.power;
-            return this.rId - o.rId;
-        }
-    }
-
-    static class Task {
-        int id, arrivalTime, workload, grade;
-        int startTime, endTime;
-        boolean isDelayed;
-        Robot assignedRobot;
-
-        public Task(int time, int id, int workload, int grade) {
-            this.arrivalTime = time;
-            this.id = id;
-            this.workload = workload;
-            this.grade = grade;
-            this.isDelayed = false;
-        }
-    }
-
-    static Comparator<Task> normalComp = (o1, o2) -> {
-        if (o1.grade != o2.grade) return o2.grade - o1.grade;
-        return o1.arrivalTime - o2.arrivalTime;
-    };
-
-    static Comparator<Task> delayComp = (o1, o2) -> o1.arrivalTime - o2.arrivalTime;
-    static Comparator<Task> workingComp = (o1, o2) -> o1.endTime - o2.endTime;
-
-    static PriorityQueue<Robot> idleRobots;
-    static PriorityQueue<Task> normalPQ;
-    static PriorityQueue<Task> delayPQ;
-    static PriorityQueue<Task> workingPQ;
-    static PriorityQueue<Task> waitingPQ;
-
-    static Robot[] robotInfo;
-    static Task[] robotTask;
-
-    public void init(int N, int M) {
-        UserSolution.N = N;
-        UserSolution.M = M;
-        currentResult = new int[M + 1];
-
-        idleRobots = new PriorityQueue<>();
-        normalPQ = new PriorityQueue<>(normalComp);
-        delayPQ = new PriorityQueue<>(delayComp);
-        workingPQ = new PriorityQueue<>(workingComp);
-        waitingPQ = new PriorityQueue<>(Comparator.comparingInt(t -> t.arrivalTime));
-
-        robotInfo = new Robot[1001];
-        robotTask = new Task[1001];
-    }
-
-    void update(int mTime) {
-        while (!workingPQ.isEmpty() && workingPQ.peek().endTime <= mTime) {
-            int now = workingPQ.peek().endTime;
-            processFinishedTasks(now);
-            processDelays(now);
-            assignAllIdleRobots(now);
-        }
-        processDelays(mTime);
-        assignAllIdleRobots(mTime);
-    }
-
-    void processFinishedTasks(int time) {
-        while (!workingPQ.isEmpty() && workingPQ.peek().endTime == time) {
-            Task finished = workingPQ.poll();
-            currentResult[finished.grade] += (finished.endTime - finished.arrivalTime);
-
-            Robot r = finished.assignedRobot;
-            robotTask[r.rId] = null;
-
-            if (robotInfo[r.rId] != null) {
-                idleRobots.add(r);
-            }
-        }
-    }
-
-    void processDelays(int time) {
-        while (!waitingPQ.isEmpty()) {
-            Task t = waitingPQ.peek();
-
-            if (t.assignedRobot != null) {
-                waitingPQ.poll();
-                continue;
-            }
-
-            if (t.arrivalTime + N <= time) {
-                waitingPQ.poll();
-                if (!t.isDelayed) {
-                    t.isDelayed = true;
-                    delayPQ.add(t);
-                }
-            } else {
-                break;
-            }
-        }
-    }
-
-    void assignAllIdleRobots(int time) {
-        while (!idleRobots.isEmpty()) {
-            Robot r = idleRobots.poll();
-            Task job = findBestTask(time);
-
-            if (job != null) {
-                job.startTime = time;
-                job.assignedRobot = r;
-
-                int duration = (job.workload + r.power - 1) / r.power;
-                job.endTime = time + duration;
-
-                workingPQ.add(job);
-                robotTask[r.rId] = job;
-            } else {
-                idleRobots.add(r);
-                break;
-            }
-        }
-    }
-
-    Task findBestTask(int time) {
-        while (!delayPQ.isEmpty()) {
-            Task t = delayPQ.peek();
-            if (t.assignedRobot != null) {
-                delayPQ.poll();
-                continue;
-            }
-            return delayPQ.poll();
-        }
-
-        while (!normalPQ.isEmpty()) {
-            Task t = normalPQ.peek();
-
-            if (t.assignedRobot != null || t.isDelayed) {
-                normalPQ.poll();
-                continue;
-            }
-
-            if (t.arrivalTime + N <= time) {
-                normalPQ.poll();
-                t.isDelayed = true;
-                delayPQ.add(t);
-                return findBestTask(time);
-            }
-
-            return normalPQ.poll();
-        }
-        return null;
-    }
-
-    public void receive(int mTime, int mId, int mWorkload, int mGrade) {
-        update(mTime);
-
-        Task newTask = new Task(mTime, mId, mWorkload, mGrade);
-        normalPQ.add(newTask);
-        waitingPQ.add(newTask);
-
-        assignAllIdleRobots(mTime);
-    }
-
-    public void add(int mTime, int rId, int mThroughput) {
-        update(mTime);
-
-        Robot newRobot = new Robot(rId, mThroughput);
-        robotInfo[rId] = newRobot;
-        idleRobots.add(newRobot);
-
-        assignAllIdleRobots(mTime);
-    }
-
-    public int remove(int mTime, int rId) {
-        update(mTime);
-
-        Robot r = robotInfo[rId];
-        if (r == null) return -1;
-
-        int retId = -1;
-
-        if (robotTask[rId] != null) {
-            Task oldJob = robotTask[rId];
-            retId = oldJob.id;
-
-            workingPQ.remove(oldJob);
-            robotTask[rId] = null;
-
-            Task resetTask = new Task(oldJob.arrivalTime, oldJob.id, oldJob.workload, oldJob.grade);
-
-            if (resetTask.arrivalTime + N <= mTime) {
-                resetTask.isDelayed = true;
-                delayPQ.add(resetTask);
-            } else {
-                resetTask.isDelayed = false;
-                normalPQ.add(resetTask);
-                waitingPQ.add(resetTask);
-            }
-        } else {
-            idleRobots.remove(r);
-        }
-
-        robotInfo[rId] = null;
-        assignAllIdleRobots(mTime);
-
-        return retId;
-    }
-
-    public int evaluate(int mTime, int mGrade) {
-        update(mTime);
-        return currentResult[mGrade];
-    }
+	int evaluate(int mTime, int mGrade) {
+		update(mTime);
+		return answer[mGrade];
+	}
 }
