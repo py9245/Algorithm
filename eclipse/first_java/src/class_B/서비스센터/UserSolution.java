@@ -82,15 +82,14 @@ class UserSolution {
 		waitPQ = new PriorityQueue<Order>();
 	}
 
-//	할당된 시간 포함 온전히 다 일 완료한 다음 초가 endTime
+//	할당된 시간 포함 온전히 다 일 완료한 다음 초가 endTime r = 10 w = 76 st = 2 
 	static void update(int target) {
-		while (lastTime < target) {
+		while (lastTime <= target) {
 			
 		}
 	}
 	
 	void receive(int mTime, int mId, int mWorkload, int mGrade) {
-		beforePQ.add(new Order(mTime, mId, mWorkload, mGrade));
 		update(mTime);
 	}
 
@@ -110,3 +109,5 @@ class UserSolution {
 		return answer[mGrade];
 	}
 }
+
+
