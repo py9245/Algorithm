@@ -67,6 +67,7 @@ class Solution
 				ans = Integer.parseInt(st.nextToken());
 				if (ret != ans)
 					okay = false;
+//					System.out.println("정답 : " + ans + " 내 답변 : " + ret);
 				break;
 			default:
 				okay = false;
