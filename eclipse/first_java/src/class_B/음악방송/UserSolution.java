@@ -44,15 +44,12 @@ class UserSolution {
         if (old == null) return;
         if (old.b >= old.s) rangeAdd(old.s, old.b, -1);
     }
-
+//그냥 구간만 기록
     int getCnt(int mBSTime) {
         return pointQuery(mBSTime);
     }
 
     void rangeAdd(int l, int r, int delta) {
-        if (l < 0) l = 0;
-        if (r >= MAXT - 2) r = MAXT - 2;
-        if (l > r) return;
         addBIT(l, delta);
         addBIT(r + 1, -delta);
     }
