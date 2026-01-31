@@ -3,6 +3,8 @@ package class_B.그림판2;
 class UserSolution
 {
 
+	static int n;
+	
 	public void init(int N, int L, char[] mCode)
 	{
 		return;
