@@ -7,6 +7,7 @@ class UserSolution
 	
 	public void init(int N, int L, char[] mCode)
 	{
+		n = N;
 		return;
 	}
 
