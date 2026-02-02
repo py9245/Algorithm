@@ -15,7 +15,7 @@ class UserSolution
 	
 	static StringBuilder sb;
 	static int answer;
-	static boolean inCoding(int s, int e) {
+	static boolean enCoding(int s, int e) {
 		if (s == e) {
 			return (grid[s] == 0)? false : true;
 		}
@@ -25,10 +25,10 @@ class UserSolution
 		int thre = e / 2;
 		int four = e / 1;
 		
-		boolean firsC = inCoding(zero, firs);
-		boolean secoC = inCoding(firs, seco);
-		boolean threC = inCoding(seco, thre);
-		boolean fourC = inCoding(thre, four);
+		boolean firsC = enCoding(zero, firs);
+		boolean secoC = enCoding(firs, seco);
+		boolean threC = enCoding(seco, thre);
+		boolean fourC = enCoding(thre, four);
 		
 		if(firsC && secoC && threC && fourC) {
 			sb.append(1);
@@ -73,7 +73,8 @@ class UserSolution
 	{
 		sb = new StringBuilder();
 		sb.append("\"");
-		if (inCoding(1, n * n))return
+		if (enCoding(1, n * n))return
+				
 		sb.append("\"");
 		return -1;
 	}
