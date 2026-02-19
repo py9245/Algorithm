@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/그림판2/sample_input.txt</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/Downloads/sample_input.txt</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
